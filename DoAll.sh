@@ -201,33 +201,34 @@ echo -e "${GREEN}[OK]:${NOCOLOR} Inserting in configuration.yaml ..."
 if [[ `cat /config/configuration.yaml|grep "ssl_certificate:"|head -1|strings|wc -l` -eq 1 ]]
 then
 	echo -e "${YELLOW}[WR]:${NOCOLOR} ssl_certificate already present in configuration.yaml"
-	line=`cat /config/configuration.yaml|grep "ssl_certificate:"|head -1|strings`
-	echo -e "${YELLOW}[WR]:${NOCOLOR} \"$line\""
-	rep="  ssl_certificate: /config/certs/$TAILSCALE_FQDN1.crt"
-	sed "s|$line|$ret|g" config/configuration.yaml
-	
 	if [ `cat /config/configuration.yaml|grep "ssl_key:"|head -1|strings|wc -l` -eq 1 ]
 	then
 		echo -e "${YELLOW}[WR]:${NOCOLOR} ssl_key already present in configuration.yaml"
+		line=`cat /config/configuration.yaml|grep "ssl_certificate:"|head -1|strings`
+		echo -e "${YELLOW}[WR]:${NOCOLOR} replacing \"$line\""
+		rep="  ssl_certificate: /config/certs/$TAILSCALE_FQDN1.crt"
+		echo -e "${YELLOW}[WR]:${NOCOLOR} with \"$rep\""
+		sed -i "s|$line|$rep|g" config/configuration.yaml
 		line=`cat /config/configuration.yaml|grep "ssl_key:"|head -1|strings`
-		echo -e "${YELLOW}[WR]:${NOCOLOR} \"$line\""
+		echo -e "${YELLOW}[WR]:${NOCOLOR} replacing \"$line\""
 		rep="  ssl_key: /config/certs/$TAILSCALE_FQDN1.key"
-		#sed "s|\$line|${rep}|" /config/configuration.yaml
+		echo -e "${YELLOW}[WR]:${NOCOLOR} with \"$rep\""
+		sed -i "s|$line|$rep|g" config/configuration.yaml
 	else
 		echo "${RED}[KO]:${NOCOLOR} Inconsistent presence of ssl_certificate but not of ssl_key in /config/configuration.yaml"
+		exit 1
 	fi
 else
-	echo "ssl_certificate not present in configuration.yaml"
-	line=`cat /config/configuration.yaml|grep "ssl_certificate:"|head -1|strings`
-	rep="  ssl_certificate: /config/certs/$TAILSCALE_FQDN1.crt"
-	sed -i.bak "s/${line}/${rep}/g" /config/configuration.yaml
+	echo -e "${GREEN}[OK]:${NOCOLOR} ssl_certificate not present in configuration.yaml"
 	if [ `cat /config/configuration.yaml|grep "ssl_key:"|head -1|strings|wc -l` -eq 1 ]
 	then
-		echo "ssl_key already present in configuration.yaml"
-		line=`cat /config/configuration.yaml|grep "ssl_key:"|head -1|strings`
-		rep="  ssl_key: /config/certs/$TAILSCALE_FQDN1.key"
-		sed -i.bak "s/${line}/${rep}/g" /config/configuration.yaml
+		echo "${RED}[KO]:${NOCOLOR}Inconsistent presence of ssl_key but not of ssl_certificate in /config/configuration.yaml"
+		exit 1
 	else
-		echo "${RED}[KO]:${NOCOLOR}Inconsistent presence of ssl_certificate but not of ssl_key in /config/configuration.yaml"
+		echo -e "${GREEN}[OK]:${NOCOLOR} ssl_key not present in configuration.yaml"
+		echo "" >> /config/configuration.yaml
+		echo "http:" >> /config/configuration.yaml
+		echo "  ssl_certificate: /config/certs/$TAILSCALE_FQDN1.crt" >> /config/configuration.yaml
+		echo "  ssl_key: /config/certs/$TAILSCALE_FQDN1.key" >> /config/configuration.yaml
 	fi
 fi

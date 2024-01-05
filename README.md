@@ -10,6 +10,8 @@ Secure acces to your HA using HTTPS with valid TailScale certificates.
 - Install "TailScale with features" addon from @lmagyar. Please follow the instructions and relax, it's the only easy part in all the process :)
 
 https://github.com/lmagyar/homeassistant-addon-tailscale/
+- Start TailScale, and select "Open WebUI"
+- Log in your TailScale account
 
 ## TailScale crazy config:
 - HA Home page -> Config -> AddOns -> "TailScale with features" -> Configuration
@@ -26,12 +28,18 @@ Open your admin interface:
 
 https://login.tailscale.com/admin/machines
 
-And get some hostnames (including the domain tail#####.ts.net with it's ips
+And write down some hostnames (including the domain tail#####.ts.net with it's ips.
 
 > ha-server.tail01234.ts.net 100.1.2.3
 >
 > laptop.tail01234.ts.net 100.3.2.1
 
-Open a terminal in your ha-server and try to ping laptop.tail01234.ts.net and 100.1.2.3, usually you would be able to ping the ip but not the fqdn (laptop.tail01234.ts.net). That's because the TailScale DNS is not being used for the system.
+Open a terminal in your ha-server and try to ping laptop.tail01234.ts.net and 100.1.2.3, usually you would be able to ping the ip but not the fqdn (laptop.tail01234.ts.net). That's because the TailScale DNS is not being used for the system. If it's your case, follow up with "HA Basic DNS config" if everything is working jump the section.
 
 ## HA Basic dns config:
+- HA Home page -> Config -> System -> Network
+
+Usually you will any interface under the "Configure network interfaces" section, but if you have some you usally need to configurre enp0s3 ... usually ... so click on enp0s3
+- Click on IPV4 -> Select Static
+
+Under the "DNS Server" field write down 100.100.100.100,1.1.1.1

@@ -18,6 +18,7 @@ https://github.com/lmagyar/homeassistant-addon-tailscale/
 - Restart
 - Deactivate LAN
 - Restart
+
 I know it sounds crazy, I know it has no sense but it works, so shut up and follow the howto.
 
 ## TailScale basic test

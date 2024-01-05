@@ -14,14 +14,16 @@ https://github.com/lmagyar/homeassistant-addon-tailscale/
 - Log in your TailScale account
 
 ## TailScale crazy config:
-- HA Home page -> Config -> AddOns -> "TailScale with features" -> Configuration
-- Activate extra button
-- Activate LAN
+- HA Home page -> Config -> AddOns -> "TailScale with features" -> Configuration -> Options
+- Activate "Show extra configuration options not used"
+- Activate "Userspace networking mode"
+- Save
 - Restart
-- Deactivate LAN
+- Deactivate "Userspace networking mode"
+- Save
 - Restart
 
-I know it sounds crazy, I know it has no sense but it works, so shut up and follow the howto.
+I know it sounds crazy, I know it has no sense but it works, so shut up, stop complaining and follow the howto.
 
 ## TailScale basic test
 Open your admin interface:
@@ -42,4 +44,9 @@ Open a terminal in your ha-server and try to ping laptop.tail01234.ts.net and 10
 Usually you will any interface under the "Configure network interfaces" section, but if you have some you usally need to configurre enp0s3 ... usually ... so click on enp0s3
 - Click on IPV4 -> Select Static
 
-Under the "DNS Server" field write down 100.100.100.100,1.1.1.1
+Under the "DNS Server" field write down 100.100.100.100,1.1.1.1 -> What we are doing with this is setting the TailScale DNS (the one that is able to resolv laptop.tail01234.ts.net) as the first DNS of our HA and 1.1.1.1 (which is an easy public one) as secondary. You can use your ISP DNS instead of 1.1.1.1
+
+Please repeat the basic test and be sure that all the pings are working.
+
+## Generate .cert and .pem files for HTTPS
+

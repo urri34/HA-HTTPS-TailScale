@@ -56,15 +56,15 @@ Please repeat the basic test and be sure that all the pings are working.
 >
 > docker exec -it CONTAINER_ID /bin/bash
 >
->  echo "nameserver 1.1.1.1">>/etc/resolv.conf
+>[Frominside the docker] echo "nameserver 1.1.1.1">>/etc/resolv.conf
 >
->  cd;/opt/tailscale cert HA_NAME.tailYOUR_NUM.ts.net
+>[Frominside the docker] cd;/opt/tailscale cert HA_NAME.tailYOUR_NUM.ts.net
 >
->  -rw-r--r-- 1 root root 5274 Dec 16 10:04 HA_NAME.tailYOUR_NUM.ts.net.crt
+>[Frominside the docker] -rw-r--r-- 1 root root 5274 Dec 16 10:04 HA_NAME.tailYOUR_NUM.ts.net.crt
 >
->  -rw------- 1 root root  227 Dec 16 10:04 HA_NAME.tailYOUR_NUM.ts.net.key
+>[Frominside the docker] -rw------- 1 root root  227 Dec 16 10:04 HA_NAME.tailYOUR_NUM.ts.net.key
 >
->  exit
+>[Frominside the docker] exit
 >
 >docker cp CONTAINER_ID:/root/HA_NAME.tailYOUR_NUM.ts.net.crt HA_NAME.tailYOUR_NUM.ts.net.crt
 >

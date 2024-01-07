@@ -49,4 +49,46 @@ Under the "DNS Server" field write down 100.100.100.100,1.1.1.1 -> What we are d
 Please repeat the basic test and be sure that all the pings are working.
 
 ## Generate .cert and .pem files for HTTPS
-- Download MakeHttpsHeadersFromTailScale.sh , and execute it in your HAServer
+- Download MakeHttpsHeadersFromTailScale.sh , and execute it in your HAServer -> Restart the HAServer, all the HAServer!
+- Or if you feel like having control of what's going on:
+>
+>docker ps -> you can get the CONTAINER_ID
+>
+> docker exec -it CONTAINER_ID /bin/bash
+>
+>  echo "nameserver 1.1.1.1">>/etc/resolv.conf
+>
+>  cd;/opt/tailscale cert HA_NAME.tailYOUR_NUM.ts.net
+>
+>  -rw-r--r-- 1 root root 5274 Dec 16 10:04 HA_NAME.tailYOUR_NUM.ts.net.crt
+>
+>  -rw------- 1 root root  227 Dec 16 10:04 HA_NAME.tailYOUR_NUM.ts.net.key
+>
+>  exit
+>
+>docker cp CONTAINER_ID:/root/HA_NAME.tailYOUR_NUM.ts.net.crt HA_NAME.tailYOUR_NUM.ts.net.crt
+>
+>docker cp CONTAINER_ID:/root/HA_NAME.tailYOUR_NUM.ts.net.key HA_NAME.tailYOUR_NUM.ts.net.key
+>
+>openssl pkcs8 -topk8 -nocrypt -in HA_NAME.tailYOUR_NUM.ts.net.key -out HA_NAME.tailYOUR_NUM.ts.net.pem
+>
+>rm HA_NAME.tailYOUR_NUM.ts.net.key
+>
+>mkdir /config/certs
+>
+>mv HA_NAME.tailYOUR_NUM.ts.net.crt /config/certs/HA_NAME.tailYOUR_NUM.ts.net.crt
+>
+>mv HA_NAME.tailYOUR_NUM.ts.net.pem /config/certs/HA_NAME.tailYOUR_NUM.ts.net.pem
+>
+
+configuration.yaml:
+
+>http:
+>
+>  ssl_certificate: /config/certs/HA_NAME.tailYOUR_NUM.ts.net.crt
+>
+>  ssl_key: /config/certs/HA_NAME.tailYOUR_NUM.ts.net.pem
+>
+
+
+>restart

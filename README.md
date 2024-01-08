@@ -30,7 +30,7 @@ Open your admin interface:
 
 https://login.tailscale.com/admin/machines
 
-And write down some hostnames (including the domain tail#####.ts.net with it's ips.
+And write down some hostnames (including the domain tail#####.ts.net which is called the FQDN) with it's ips.
 
 > ha-server.tail01234.ts.net -> 100.1.2.3
 >

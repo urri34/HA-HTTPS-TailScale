@@ -14,8 +14,8 @@ https://github.com/lmagyar/homeassistant-addon-tailscale/
 - Log in your TailScale account
 
 ## TailScale crazy config:
-- HA Home page -> Config -> AddOns -> "TailScale with features" -> Configuration -> Options
-- Activate "Show extra configuration options not used"
+- HA Home page -> Settings -> AddOns -> "TailScale with features" -> Configuration -> Under Options part
+- Activate "Show unused optional configuration options"
 - Activate "Userspace networking mode"
 - Save
 - Restart
@@ -56,15 +56,15 @@ Please repeat the basic test and be sure that all the pings are working.
 >
 > docker exec -it CONTAINER_ID /bin/bash
 >
->[Frominside the docker] echo "nameserver 1.1.1.1">>/etc/resolv.conf
+>[From inside the docker] echo "nameserver 1.1.1.1">>/etc/resolv.conf
 >
->[Frominside the docker] cd;/opt/tailscale cert HA_NAME.tailYOUR_NUM.ts.net
+>[From inside the docker] cd;/opt/tailscale cert HA_NAME.tailYOUR_NUM.ts.net
 >
->[Frominside the docker] -rw-r--r-- 1 root root 5274 Dec 16 10:04 HA_NAME.tailYOUR_NUM.ts.net.crt
+>[From inside the docker] -rw-r--r-- 1 root root 5274 Dec 16 10:04 HA_NAME.tailYOUR_NUM.ts.net.crt
 >
->[Frominside the docker] -rw------- 1 root root  227 Dec 16 10:04 HA_NAME.tailYOUR_NUM.ts.net.key
+>[From inside the docker] -rw------- 1 root root  227 Dec 16 10:04 HA_NAME.tailYOUR_NUM.ts.net.key
 >
->[Frominside the docker] exit
+>[From inside the docker] exit
 >
 >docker cp CONTAINER_ID:/root/HA_NAME.tailYOUR_NUM.ts.net.crt HA_NAME.tailYOUR_NUM.ts.net.crt
 >

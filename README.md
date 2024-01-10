@@ -60,9 +60,9 @@ Please repeat the basic test and be sure that all the pings are working.
 >
 >[From inside the docker] cd;/opt/tailscale cert HA_NAME.tailYOUR_NUM.ts.net
 >
->[From inside the docker] -rw-r--r-- 1 root root 5274 Dec 16 10:04 HA_NAME.tailYOUR_NUM.ts.net.crt
+>[From inside the docker] -rw-r--r-- 1 root root 5274 Dec 16 10:05 HA_NAME.tailYOUR_NUM.ts.net.crt
 >
->[From inside the docker] -rw------- 1 root root  227 Dec 16 10:04 HA_NAME.tailYOUR_NUM.ts.net.key
+>[From inside the docker] -rw------- 1 root root  227 Dec 16 10:05 HA_NAME.tailYOUR_NUM.ts.net.key
 >
 >[From inside the docker] exit
 >
